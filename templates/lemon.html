@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LemonTree</title>
+    <style>
+        body{
+            background-size: 100% 100%;
+            background: radial-gradient(circle at center, #fff, #fff 50%, #fff) no-repeat;
+            height: 100vh;
+            }
+        .bay_max {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50%;
+            transform: translate(-50%, -40%);
+        }
+        .bay_max::before {
+            background: #000;
+            border-radius: 50%;
+            content: "";
+            position: absolute;
+            width: 12em;
+            height: 12em;
+            left: -9em;
+            top: -6em;
+            transform: skewX(-4deg);
+            background: linear-gradient(to bottom, #efefef, #efefef 50%, #000 50%, #000) 0 -100%;
+            background-size: 200% 200%;
+            animation: blink 6s infinite;
+        }
+        .bay_max::after {
+            background: #000;
+            border-radius: 50%;
+            content: "";
+            position: absolute;
+            width: 12em;
+            height: 12em;
+            right: -9em;
+            top: -6em;
+            transform: skewX(4deg);
+            background: linear-gradient(to bottom, #efefef, #efefef 50%, #000 50%, #000) 0 -100%;
+            background-size: 200% 200%;
+            animation: blink 6s 0.1s infinite;
+        }
+        @keyframes blink{
+            0%, 50% {
+                background-position: 0 100%;
+            }
+            85%, 95% {
+                background-position: 0 75%;
+            }
+            100% {
+                background-position: 0 100%;
+            }
+        }
+        .bubble {
+            width: fit-content;
+            height: fit-content;
+            position: fixed;
+            top: 30px;
+            right: 60px;
+            text-align: -webkit-center;
+            background: #efefef;
+            padding: 15px 15px 15px 15px;
+            font-size: 16px;
+        }
+        .bubble .demo {
+            z-index: -1;
+            width: 45px;
+            height: 45px;
+            background: #efefef;
+            transform: rotate(60deg);
+            position: absolute;
+            bottom: -10px;
+            right: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="bay_max"></div>
+    <div class="lemon">
+    <i></i>
+    <br><br><br><br><br>
+    <div class="bubble">
+        {% for msg in rst %}
+        {% if msg[1] != '' %}
+        <p><a href="{{ msg[1] }}" target="_blank">{{ msg[0]|safe }}</a></p>
+        {% else %}
+        <p><a>{{ msg[0]|safe }}</a></p>
+        {% endif %}
+        {% endfor %}
+        <div class="demo"></div>
+    </div>
+    <div class="s-bar" style="position: fixed; bottom: 30px; right: 60px">
+        <form method="post">
+            <label><input type="text" name="cont" style="width: 300px; height: 30px; font-size: 15px"></label>
+            <button type="submit" style="background-color: #000000; color: #FFFFFF;
+            width: 90px; height: 36px; font-size: 20px">发送</button>
+        </form>
+    </div>
+    </div>
+    <audio controls style="margin-left: 30px">
+        <source src="../static/background.mp3">  <!--mac忽视autoplay属性，认为不让用户确认就下载音频文件会引起流量问题，所以禁止了这个功能-->
+    </audio>
+</body>
+</html>
